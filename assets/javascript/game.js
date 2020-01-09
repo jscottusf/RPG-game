@@ -26,7 +26,7 @@ $(document).ready(function() {
                 health : 180,
                 attackPower : 25,
                 counterAttackPower : 25
-            } 
+            }
         };
 
     // for (var i = 0; i < characterChoices.length; i++) {
@@ -35,6 +35,13 @@ $(document).ready(function() {
     //     $("#characters").append(charContainer);
     // };
     for (var i = 0; i < characterChoices.length; i++) {
+        // charContainer = $("div")
+        // charContainer.addClass("character-div");
+        // charContainer.attr("id", characterChoices[i]);
+        // charContainer.attr("data-health", chartacterAttributes[characterChoices[i]].health);
+        // charContainer.attr("data-attackPower", chartacterAttributes[characterChoices[i]].attackPower);
+        // charContainer.attr("data-counterAttackPower", chartacterAttributes[characterChoices[i]].counterAttackPower);
+        // $("#characters").append(charContainer);
         character = $("<img>");
         character.addClass("character-image");
         character.attr("src", "./assets/images/rick.jpg");
@@ -42,8 +49,9 @@ $(document).ready(function() {
         character.attr("data-health", chartacterAttributes[characterChoices[i]].health);
         character.attr("data-attackPower", chartacterAttributes[characterChoices[i]].attackPower);
         character.attr("data-counterAttackPower", chartacterAttributes[characterChoices[i]].counterAttackPower);
+        character.text(chartacterAttributes[characterChoices[i]].name);
         $("#characters").append(character);
-        $("#characters").append(chartacterAttributes[characterChoices[i]].name);
-        $("#characters").append(chartacterAttributes[characterChoices[i]].health);
+    //     //$("#characters").append(chartacterAttributes[characterChoices[i]].name);
+    //     //$("#characters").append(chartacterAttributes[characterChoices[i]].health);
     }
 });

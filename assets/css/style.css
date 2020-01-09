@@ -24,12 +24,12 @@ body {
 .character-image {
     width: 200px;
     border-radius: 25px;
-    padding: 5px;
-    margin: 5px;
+    padding: 20px;
+    
   }
 
 .character-image:hover {
-    padding: 10px;
+    padding: 20px;
     border-radius: 25px;
     border: 2px solid rgb(95, 94, 94);
 }
