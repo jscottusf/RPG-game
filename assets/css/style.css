@@ -2,8 +2,18 @@ html {
   position: relative;
   min-height: 100%;
 }
+
 body {
   margin-bottom: 60px; /* Margin bottom by footer height */
+  background-image: url("../images/rickmorty.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom center;
+}
+
+.game-container {
+  color: white;
+  padding: 30px;
 }
 
 .push {
@@ -26,6 +36,7 @@ body {
   display: grid;
   grid-template-columns: 205px 205px 205px 205px;
   padding: 0;
+  cursor: pointer;
 }
 
 .character {

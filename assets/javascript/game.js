@@ -1,10 +1,10 @@
 $(document).ready(function() {
-    var player;
-    var enemies = [];
-    var enemy;
-    var turnCounter = 1;
-    var killCount = 0;
-    var characters = {
+    let player;
+    let enemies = [];
+    let enemy;
+    let turnCounter = 1;
+    let killCount = 0;
+    const characters = {
         "Birdman": {
             name: "Birdman",
             health: 120,
@@ -35,37 +35,6 @@ $(document).ready(function() {
         }
     };
 
-    initializeGame();
-
-    $("#characters").on("click", ".character", function() {
-        //saving characters name
-        var name = $(this).attr("data-name");
-        //if no player chosen, add player on click
-        if (!player) {
-            player = characters[name];
-        }
-        //place the rest into the enemies array
-        for (var key in characters) {
-            if (key !== name) {
-                enemies.push(characters[key]);
-            }
-        }
-        //hide character selction after click
-        //render player into player div
-        $("#characters").hide();
-        setPlayer(player, "#playerCharacter");
-        setEnemies(enemies);
-    });
-
-    $("#enemyCharacters").on("click", ".character", function() {
-        var name = $(this).attr("data-name");
-        if ($("#enemy").children().length === 0); //if no enemy
-        enemy = characters[name];
-        setPlayer(enemy, "#enemy");
-        $(this).remove();
-        clearResults();
-    });
-
     // This block of code builds the character card, and renders it to the page.
     function renderCharacter(character, renderArea) {
         var charDiv = $("<div class='character' data-name='" + character.name + "'>");
@@ -95,10 +64,102 @@ $(document).ready(function() {
         }
       };
 
+    function setMessage(message) {
+        let gameMessageSet = $("#results");
+        let newMessage = $("<div>").text(message);
+        gameMessageSet.append(newMessage);
+    };
+
+    function restartGame(resultMessage) {
+        // When the 'Restart' button is clicked, reload the page.
+        let restart = $("<button class='btn btn-primary btn-lg restart' value='restart'>Restart Game</button>").click(function() {
+          location.reload();
+        });
+    
+        // Build div that will display the victory/defeat message.
+        let gameState = $("<div>").text(resultMessage);
+    
+        // Render the restart button and victory/defeat message to the page.
+        $(".game-container").append(gameState);
+        $(".game-container").append(restart);
+      };
+
     function clearResults() {
-        var results = $("#results");
+        let results = $("#results");
         results.text("");
     };
+
+    initializeGame();
+
+    $("#characters").on("click", ".character", function() {
+        //saving characters name
+        let name = $(this).attr("data-name");
+        //if no player chosen, add player on click
+        if (!player) {
+            player = characters[name];
+        }
+        //place the rest into the enemies array
+        for (var key in characters) {
+            if (key !== name) {
+                enemies.push(characters[key]);
+            }
+        }
+        //hide character selction after click
+        //render player into player div
+        $("#characters").hide();
+        setPlayer(player, "#playerCharacter");
+        setEnemies(enemies);
+    });
+
+    $("#enemyCharacters").on("click", ".character", function() {
+        let name = $(this).attr("data-name");
+        //if no defender, clicked becomes the defender, remove from enemy div
+        if ($("#enemy").children().length === 0){
+            enemy = characters[name];
+            setPlayer(enemy, "#enemy");
+            $(this).remove();
+            clearResults();  
+        }
+        
+    });
+
+    $("#attack").on("click", function() {
+        if($("#enemy").children().length !== 0) {
+            let attackMessage = "You attacked " + enemy.name + "for " + enemy.attackPower * turnCounter + " damage.";
+            let counterAttackMessage = enemy.name + " attacked you for " + enemy.counterAttackPower + " damage";
+            clearResults();
+            enemy.health -= player.attackPower * turnCounter;
+            if (enemy.health > 0) {
+                setPlayer(enemy, "#enemy");
+                setMessage(attackMessage);
+                setMessage(counterAttackMessage);
+                player.health -= enemy.counterAttackPower;
+                setPlayer(player, "#playerCharacter")
+                if (player.health <= 0) {
+                    clearResults();
+                    restartGame("You have been defeated. GAME OVER.");
+                    $("#attack").off("click");
+                }
+            }
+            else {
+                $("#enemy").empty();
+                let gameStateMessage = "You have defeated " + enemy.name + ", you can choose to fight another enemy."
+                setMessage(gameStateMessage);
+                killCount++
+                if (killCount >= enemies.length) {
+                    clearResults();
+                    $("attack").off("click");
+                    restartGame("You Won!!!! GAME OVER!!!");
+                }
+            }
+            turnCounter++;
+        }
+        else {
+            clearResults();
+            setMessage("No enemy here");
+        }
+    });
+
     // var character;
     // var charContainer;
     // var characterChoices = ["rick0", "rick1", "rick2", "rick3"];
