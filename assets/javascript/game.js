@@ -1,4 +1,20 @@
 $(document).ready(function() {
+    let rickSound = document.createElement("audio");
+    rickSound.setAttribute("src", "assets/sounds/wubba.wav");
+    let birdmanSound = document.createElement("audio");
+    birdmanSound.setAttribute("src", "assets/sounds/birdman.wav");
+    let evilMortySound = document.createElement("audio");
+    evilMortySound.setAttribute("src", "assets/sounds/oh_man.wav");
+    let bethSound = document.createElement("audio");
+    bethSound.setAttribute("src", "assets/sounds/myman.wav");
+    let startSound = document.createElement("audio");
+    startSound.setAttribute("src", "assets/sounds/showme.wav");
+    let winSound = document.createElement("audio");
+    winSound.setAttribute("src", "assets/sounds/like.wav");
+    let killSound = document.createElement("audio");
+    killSound.setAttribute("src", "assets/sounds/goodjob.wav");
+    let attackSound = document.createElement("audio");
+    attackSound.setAttribute("src", "assets/sounds/shot.wav");
     let player;
     let enemies = [];
     let enemy;
@@ -10,30 +26,38 @@ $(document).ready(function() {
             health: 120,
             attackPower: 8,
             counterAttackPower: 15,
-            imageUrl: "./assets/images/birdman.jpg"
+            imageUrl: "./assets/images/birdman.jpg",
+            sound: birdmanSound
         },
         "Rick Sanchez": {
             name: "Rick Sanchez",
             health: 100,
             attackPower: 14,
             counterAttackPower: 5,
-            imageUrl: "./assets/images/rick.jpg"
+            imageUrl: "./assets/images/rick.jpg",
+            sound: rickSound
         },
         "Mytholog Beth": {
             name: "Mytholog Beth",
             health: 150,
             attackPower: 8,
             counterAttackPower: 20,
-            imageUrl: "./assets/images/bethclone.jpg"
+            imageUrl: "./assets/images/bethclone.jpg",
+            sound: bethSound
         },
         "Evil Morty" : {
             name: "Evil Morty",
             health: 180,
             attackPower: 7,
             counterAttackPower: 25,
-            imageUrl: "./assets/images/evilmorty.jpg"
+            imageUrl: "./assets/images/evilmorty.jpg",
+            sound: evilMortySound
         }
     };
+
+    //audioElement.play(); //audioElement.pause();
+    
+    
 
     // This block of code builds the character card, and renders it to the page.
     function renderCharacter(character, renderArea) {
@@ -90,6 +114,7 @@ $(document).ready(function() {
     };
 
     initializeGame();
+    //startSound.play();
 
     $("#characters").on("click", ".character", function() {
         //saving characters name
@@ -109,6 +134,7 @@ $(document).ready(function() {
         $("#characters").hide();
         setPlayer(player, "#playerCharacter");
         setEnemies(enemies);
+        player.sound.play();
     });
 
     $("#enemyCharacters").on("click", ".character", function() {
@@ -119,12 +145,14 @@ $(document).ready(function() {
             setPlayer(enemy, "#enemy");
             $(this).remove();
             clearResults();  
+            enemy.sound.play();
         }
         
     });
 
     $("#attack").on("click", function() {
         if($("#enemy").children().length !== 0) {
+            attackSound.play();
             let attackMessage = "You attacked " + enemy.name + "for " + enemy.attackPower * turnCounter + " damage.";
             let counterAttackMessage = enemy.name + " attacked you for " + enemy.counterAttackPower + " damage";
             clearResults();
@@ -142,11 +170,14 @@ $(document).ready(function() {
                 }
             }
             else {
+                killSound.play();
                 $("#enemy").empty();
                 let gameStateMessage = "You have defeated " + enemy.name + ", you can choose to fight another enemy."
                 setMessage(gameStateMessage);
                 killCount++
                 if (killCount >= enemies.length) {
+                    winSound.play();
+                    killSound.pause();
                     clearResults();
                     $("attack").off("click");
                     restartGame("You Won!!!! GAME OVER!!!");
