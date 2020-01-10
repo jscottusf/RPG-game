@@ -11,6 +11,8 @@ $(document).ready(function() {
     startSound.setAttribute("src", "assets/sounds/showme.wav");
     let winSound = document.createElement("audio");
     winSound.setAttribute("src", "assets/sounds/like.wav");
+    let lossSound = document.createElement("audio");
+    lossSound.setAttribute("src", "assets/sounds/evilmorty.mp3");
     let killSound = document.createElement("audio");
     killSound.setAttribute("src", "assets/sounds/goodjob.wav");
     let attackSound = document.createElement("audio");
@@ -164,6 +166,7 @@ $(document).ready(function() {
                 player.health -= enemy.counterAttackPower;
                 setPlayer(player, "#playerCharacter")
                 if (player.health <= 0) {
+                    lossSound.play();
                     clearResults();
                     restartGame("You have been defeated. GAME OVER.");
                     $("#attack").off("click");
