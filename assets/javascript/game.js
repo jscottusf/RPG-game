@@ -22,7 +22,7 @@ $(document).ready(function() {
     let enemy;
     let turnCounter = 1;
     let killCount = 0;
-    const characters = {
+    let characters = {
         "Birdman": {
             name: "Birdman",
             health: 120,
@@ -57,16 +57,12 @@ $(document).ready(function() {
         }
     };
 
-    //audioElement.play(); //audioElement.pause();
-    
-    
-
     // This block of code builds the character card, and renders it to the page.
     function renderCharacter(character, renderArea) {
-        var charDiv = $("<div class='character' data-name='" + character.name + "'>");
-        var charName = $("<div class='character-name'>").text(character.name);
-        var charImage = $("<img alt='image' class='character-image'>").attr("src", character.imageUrl);
-        var charHealth = $("<div class='character-health'>").text(character.health);
+        let charDiv = $("<div class='character' data-name='" + character.name + "'>");
+        let charName = $("<div class='character-name'>").text(character.name);
+        let charImage = $("<img alt='image' class='character-image'>").attr("src", character.imageUrl);
+        let charHealth = $("<div class='character-health'>").text(character.health);
         charDiv.append(charName).append(charImage).append(charHealth);
         $(renderArea).append(charDiv);
       };
@@ -116,7 +112,6 @@ $(document).ready(function() {
     };
 
     initializeGame();
-    //startSound.play();
 
     $("#characters").on("click", ".character", function() {
         //saving characters name
@@ -219,4 +214,9 @@ $(document).ready(function() {
     //     $("#characters").append(chartacterAttributes[characterChoices[i]].name);
     //     $("#characters").append(chartacterAttributes[characterChoices[i]].health);
     //}
+
+    // var delaySound = setTimeout(function() {
+    //     startSound.play()
+    //     }, 100);
+    // });
 });
