@@ -26,7 +26,7 @@ $(document).ready(function() {
         "Birdman": {
             name: "Birdman",
             health: 120,
-            attackPower: 8,
+            attackPower: 12,
             counterAttackPower: 15,
             imageUrl: "./assets/images/birdman.jpg",
             sound: birdmanSound
@@ -35,14 +35,14 @@ $(document).ready(function() {
             name: "Rick Sanchez",
             health: 100,
             attackPower: 14,
-            counterAttackPower: 5,
+            counterAttackPower: 15,
             imageUrl: "./assets/images/rick.jpg",
             sound: rickSound
         },
         "Mytholog Beth": {
             name: "Mytholog Beth",
             health: 150,
-            attackPower: 8,
+            attackPower: 6,
             counterAttackPower: 20,
             imageUrl: "./assets/images/bethclone.jpg",
             sound: bethSound
@@ -50,7 +50,7 @@ $(document).ready(function() {
         "Evil Morty" : {
             name: "Evil Morty",
             health: 180,
-            attackPower: 7,
+            attackPower: 5,
             counterAttackPower: 25,
             imageUrl: "./assets/images/evilmorty.jpg",
             sound: evilMortySound
