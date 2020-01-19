@@ -9,6 +9,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: bottom center;
+  background-position-x: 70%;
 }
 
 .game-container {
